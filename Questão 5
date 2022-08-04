@@ -1,0 +1,12 @@
+num1 = int(input("informe o primeiro numero: "))
+num2 = int(input("informe o segundo número: "))
+anterior = num1
+atual = num2
+resultado = anterior%atual
+
+while resultado != 0:
+    anterior = atual
+    atual = resultado
+    resultado = anterior%atual
+
+print("mdc({},{})= {})".format(num1,num2, atual))
