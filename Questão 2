@@ -1,0 +1,13 @@
+import time
+from math import sqrt
+
+primo = lambda numero: not any(numero%i==0 for i in range(2, int(sqrt(numero))))
+tempo = time.time()
+
+contador = 2
+
+while (time.time()-tempo < 60):
+    if (primo(contador)):
+        print(contador)
+    
+    contador += 1
