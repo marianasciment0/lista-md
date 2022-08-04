@@ -1,0 +1,13 @@
+def combinacao_linear(a,b):
+    if b == 0:
+        return (a, 1, 0)
+
+    (d, x, y) = combinacao_linear(b, a % b)
+
+    return (d, y, x - (a//b)*y)
+
+numero1 = int(input("informe o primeiro número:"))
+numero2 = int(input("informe o segundo:"))
+combinacao = combinacao_linear(numero1, numero2)
+
+print(f"mdc({numero1},{numero2}) = {combinacao[1]} x {numero1} + {combinacao[2]} x {numero2} = {combinacao[0]}")
