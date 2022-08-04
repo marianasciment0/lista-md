@@ -1,0 +1,63 @@
+from math import sqrt
+from collections import Counter
+
+primo = lambda numero: not any(numero%i==0 for i in range(2, int(sqrt(numero))))
+
+def menor_fator(numero):
+    for i in range(2, numero+1):
+        if primo(i) and numero % i == 0:
+            return i
+
+
+def fatores_primos(numero):
+    menor_primo = menor_fator(numero)
+    resultado_div = numero // menor_primo
+
+    if resultado_div == 1:
+        return [menor_primo]
+    
+
+    return [menor_primo, *fatores_primos(resultado_div)]
+
+
+num1 = int(input("Informe o primeiro número: "))
+num2 = int(input("Informe o segundo número: "))
+
+primos_n1 = fatores_primos(num1)
+primos_n2 = fatores_primos(num2)
+
+resultado_n1 = Counter(primos_n1)
+resultado_n2 = Counter(primos_n2)
+
+for numero in resultado_n1.keys():
+    if numero not in resultado_n2.keys():
+        resultado_n2[numero] = 0
+
+
+for numero in resultado_n2.keys():
+    if numero not in resultado_n1.keys():
+        resultado_n1[numero] = 0
+
+
+max_dict = dict()
+min_dict = dict()
+
+mmc = 1
+mdc = 1
+
+for numero in resultado_n1.keys():
+    min_num = min(resultado_n1[numero], resultado_n2[numero])
+    max_num = max(resultado_n1[numero], resultado_n2[numero])
+
+    max_dict[numero] = max_num
+    min_dict[numero] = min_num
+
+    mmc *= pow(numero, max_num)
+    mdc *= pow(numero, min_num)
+
+
+mmc_str = " x ".join([f"{num}^{exp}" for num, exp in sorted(max_dict.items())])
+mdc_str = " x ".join([f"{num}^{exp}" for num, exp in sorted(min_dict.items())])
+
+print(f"MDC({num1}, {num2}) = {mdc_str} = {mdc}")
+print(f"MMC({num1}, {num2}) = {mmc_str} = {mmc}")
