@@ -1,0 +1,13 @@
+numero = int(input('informe o número: '))
+
+primos = []
+d = 2
+
+while numero > 1: 
+	if numero%d == 0:
+		numero = numero/d
+		primos.append(d)
+	else:
+		d += 1
+
+print (primos)
