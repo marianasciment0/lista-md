@@ -1,0 +1,27 @@
+def combinacao_linear(a,b):
+    if b == 0:
+        return (a, 1, 0)
+
+    (d, x, y) = combinacao_linear(b, a % b)
+
+    return (d, y, x - (a//b)*y)
+
+
+def inverso(s, contador, mod):
+    inv = s + (mod*contador)
+    
+    if inv > 0 and inv < mod:
+        return inv
+    
+    elif inv > mod:
+        return inv % mod
+
+    return inverso(s, contador+1, mod)
+
+
+numero = int(input("Numero:"))
+mod = int(input("Mod:"))
+combinacao = combinacao_linear(numero, mod)
+
+inv = inverso(combinacao[1], 0, mod)
+print(f"O inverso de {numero} mod {mod} é {inv}")
